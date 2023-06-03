@@ -4,7 +4,6 @@ import 'package:memory/src/colors_pallet/total_palette.dart';
 import 'package:memory/src/presentation/add_memory_screen/add_memory_screen.dart';
 import 'package:memory/src/presentation/widgets/primary_button.dart';
 import 'package:memory/src/redux/action.dart';
-import 'package:memory/src/redux/redusers.dart';
 import 'package:memory/src/redux/state.dart';
 import 'package:redux/redux.dart';
 
@@ -39,10 +38,15 @@ class _MemoryLayoutState extends State<MemoryLayout> {
         padding: screenPadding,
           child: Column(
             children: [
+              Container(
+                height: 40,
+                width: 40,
+                child: StoreConnector<AppState, AppState>(converter: (store) => store.state, builder: (BuildContext context, vm) => vm.widget),
+              ),
               SizedBox(height: 40,),
               StoreConnector<AppState, AppState>(
               converter: (store)=> store.state,
-               builder: (context, vm) => Text(vm.toString())),
+               builder: (context, state) => Text(state.counter.toString())),
               SizedBox(height: 40,),
               TextField(
                 decoration: InputDecoration(labelText: 'text'),
@@ -61,7 +65,9 @@ class _MemoryLayoutState extends State<MemoryLayout> {
                 child: PrimaryButton(
                   text: buttonText,
                   onPressed: () {
+                    store.dispatch(LoadingMemoryAction());
                     store.dispatch(SetTextAction(text: inputText));
+                    store.dispatch(AddAction());
                     Navigator.pushNamed(context, AddMemoryScreen.path);
                   },
                   buttonColor: TotalPalette.primaryColor,
