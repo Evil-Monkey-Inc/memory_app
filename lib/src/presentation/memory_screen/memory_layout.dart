@@ -34,7 +34,7 @@ class _MemoryLayoutState extends State<MemoryLayout> {
               child: PrimaryButton(
                 text: buttonText,
                 onPressed: () {
-
+               //  Navigator.of(context).push(route)
                 },
                 buttonColor: TotalPalette.primaryColor,
                 textButtonColor: TotalPalette.scaffoldBackgroundColor,
