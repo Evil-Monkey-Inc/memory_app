@@ -8,7 +8,6 @@ class MemoryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const MemoryScreen(),
       initialRoute: MemoryScreen.path,
       routes: {
         MemoryScreen.path : (_) => const MemoryScreen(),
