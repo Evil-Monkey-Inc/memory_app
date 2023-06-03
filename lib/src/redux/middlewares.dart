@@ -1,23 +1,27 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
+import 'package:async/async.dart';
 import 'package:memory/src/redux/action.dart';
 import 'package:memory/src/redux/state.dart';
 import 'package:redux/redux.dart';
 
-// TODO(George): refactor for our goals
 
-void loaderMiddleware(Store<AppState> store, dynamic action, NextDispatcher nextDispatcher){
-  // TODO(George): add error handling
+class SearchMiddleware implements MiddlewareClass<AppState> {
 
-  if(action is LoadingMemoryAction){
-    _loadMemory(const Icon(Icons.done)).then(
-      (value) => store.dispatch(
-        SuccessLoadedMemoryAction(value),
-      ),
-    );
+  Timer? _timer;
+  CancelableOperation<Store<AppState>>? _operation;
+
+  @override
+  call(Store<AppState> store, action, NextDispatcher next) {
+    if (action is LoadingMemoryAction) {
+
+      _timer?.cancel();
+      _operation?.cancel();
+
+      _timer = Timer(const Duration(seconds: 2), () {
+        store.dispatch(SuccessMemory());
+      });
+    }
+    next(action);
   }
-  nextDispatcher(action);
-}
-
-Future<Widget> _loadMemory(Widget widget) async {
- return widget;
 }

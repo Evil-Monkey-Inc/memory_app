@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart';
+abstract class AppState{}
 
-class AppState{
-  AppState({
-    required this.counter,
-    required this.text,
-    required this.widget,
-  });
+class MemoryInitial implements AppState {}
 
-  final Widget widget;
-  final int counter;
-  final String text;
-}
+class LoadingMemory implements AppState {}
 
+class SuccessMemory implements AppState {}
+
+class MemoryError implements AppState {}

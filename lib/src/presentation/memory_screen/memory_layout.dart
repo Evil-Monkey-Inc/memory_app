@@ -7,56 +7,66 @@ import 'package:memory/src/redux/action.dart';
 import 'package:memory/src/redux/state.dart';
 import 'package:redux/redux.dart';
 
-
-class MemoryLayout extends StatefulWidget {
-  const MemoryLayout({Key? key, required this.store}) : super(key: key);
-
-  final Store store;
-
-  @override
-  State<MemoryLayout> createState() => _MemoryLayoutState();
-}
-
-class _MemoryLayoutState extends State<MemoryLayout> {
+class MemoryLayout extends StatelessWidget {
   static const buttonText = "Add memory";
   static const appBarTitle = "Memory's Screen";
 
   static const defaultSpacer = SizedBox(height: 18);
   static const screenPadding = EdgeInsets.symmetric(horizontal: 12.0);
 
-  @override
-  void initState() {
-    widget.store.dispatch(LoadingMemoryAction());
-    super.initState();
-  }
+  const MemoryLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(appBarTitle),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: screenPadding,
-          child: Column(
-            children: [
-              Flexible(child: Container()),
-              Align(
-                child: PrimaryButton(
-                  text: buttonText,
-                  onPressed: () {
-
-                    Navigator.pushNamed(context, AddMemoryScreen.path);
-                  },
-                  buttonColor: TotalPalette.primaryColor,
-                  textButtonColor: TotalPalette.scaffoldBackgroundColor,
+    final Store<AppState> store = StoreProvider.of<AppState>(context);
+    return StoreConnector<AppState, AppState>(
+      converter: (store) => store.state,
+      onInit: store.dispatch(LoadingMemoryAction()),
+        builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text(appBarTitle),
+            centerTitle: true,
+          ),
+          body: Padding(
+            padding: screenPadding,
+            child: Column(
+              children: [
+                Expanded(
+                  child: AnimatedSwitcher(
+                    duration: Duration(milliseconds: 500),
+                    child: _buildVisible(state),
+                  ),
                 ),
-              ),
-              defaultSpacer,
-          ],
-        ),
-      ),
+                Align(
+                  child: PrimaryButton(
+                    text: buttonText,
+                    onPressed: () {
+                      Navigator.pushNamed(context, AddMemoryScreen.path);
+                    },
+                    buttonColor: TotalPalette.primaryColor,
+                    textButtonColor: TotalPalette.scaffoldBackgroundColor,
+                  ),
+                ),
+                defaultSpacer,
+              ],
+            ),
+          ),
+        );
+      }
     );
+  }
+  Widget _buildVisible(AppState state) {
+    if(state is MemoryInitial){
+      return Container(color: Colors.orange,);
+    }
+     else if (state is LoadingMemory) {
+      return Container(color: Colors.blue,);
+    } else if (state is SuccessMemory) {
+      return Container(color: Colors.black,);
+    } else if (state is MemoryError) {
+      return Container(color: Colors.green,);
+    }
+    throw ArgumentError('No view for state: $state');
   }
 }
