@@ -7,6 +7,7 @@ import 'package:memory/src/redux/state.dart';
 import 'package:redux/redux.dart';
 
 void main() {
+  // TODO(George): deleted unused states later
   final store = Store<AppState>(
     reducer,
     middleware:[loaderMiddleware],

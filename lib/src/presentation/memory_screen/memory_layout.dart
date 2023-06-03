@@ -9,16 +9,15 @@ import 'package:redux/redux.dart';
 
 
 class MemoryLayout extends StatefulWidget {
-  const MemoryLayout({Key? key}) : super(key: key);
+  const MemoryLayout({Key? key, required this.store}) : super(key: key);
+
+  final Store store;
 
   @override
   State<MemoryLayout> createState() => _MemoryLayoutState();
 }
 
 class _MemoryLayoutState extends State<MemoryLayout> {
-  var counter = 0;
-  var inputText = '';
-
   static const buttonText = "Add memory";
   static const appBarTitle = "Memory's Screen";
 
@@ -26,9 +25,13 @@ class _MemoryLayoutState extends State<MemoryLayout> {
   static const screenPadding = EdgeInsets.symmetric(horizontal: 12.0);
 
   @override
-  Widget build(BuildContext context) {
-    final Store<AppState> store = StoreProvider.of<AppState>(context);
+  void initState() {
+    widget.store.dispatch(LoadingMemoryAction());
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(appBarTitle),
@@ -38,36 +41,12 @@ class _MemoryLayoutState extends State<MemoryLayout> {
         padding: screenPadding,
           child: Column(
             children: [
-              Container(
-                height: 40,
-                width: 40,
-                child: StoreConnector<AppState, AppState>(converter: (store) => store.state, builder: (BuildContext context, vm) => vm.widget),
-              ),
-              SizedBox(height: 40,),
-              StoreConnector<AppState, AppState>(
-              converter: (store)=> store.state,
-               builder: (context, state) => Text(state.counter.toString())),
-              SizedBox(height: 40,),
-              TextField(
-                decoration: InputDecoration(labelText: 'text'),
-                onChanged: (value)=> inputText = value,
-            ),
-            StoreConnector<AppState, AppState>(
-              converter: (store)=> store.state,
-              builder: (context, state) {
-                return Text(
-                  state.text,
-                  style: TextStyle(fontSize: 24),
-                );
-              },
-            ),
+              Flexible(child: Container()),
               Align(
                 child: PrimaryButton(
                   text: buttonText,
                   onPressed: () {
-                    store.dispatch(LoadingMemoryAction());
-                    store.dispatch(SetTextAction(text: inputText));
-                    store.dispatch(AddAction());
+
                     Navigator.pushNamed(context, AddMemoryScreen.path);
                   },
                   buttonColor: TotalPalette.primaryColor,
