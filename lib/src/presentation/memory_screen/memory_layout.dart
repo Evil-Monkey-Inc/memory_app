@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory/src/colors_pallet/total_palette.dart';
+import 'package:memory/src/presentation/add_memory_screen/add_memory_screen.dart';
 import 'package:memory/src/presentation/widgets/primary_button.dart';
 
 class MemoryLayout extends StatefulWidget {
@@ -14,7 +15,6 @@ class _MemoryLayoutState extends State<MemoryLayout> {
   static const buttonText = 'Add memory';
   static const appBarTitle = 'Memory Screen';
 
-  static const topSpacer = SizedBox(height: 20.0);
   static const defaultSpacer = SizedBox(height: 18);
   static const screenPadding = EdgeInsets.symmetric(horizontal: 12.0);
 
@@ -33,9 +33,7 @@ class _MemoryLayoutState extends State<MemoryLayout> {
             Align(
               child: PrimaryButton(
                 text: buttonText,
-                onPressed: () {
-               //  Navigator.of(context).push(route)
-                },
+                onPressed: () => Navigator.pushNamed(context, AddMemoryScreen.path),
                 buttonColor: TotalPalette.primaryColor,
                 textButtonColor: TotalPalette.scaffoldBackgroundColor,
               ),
