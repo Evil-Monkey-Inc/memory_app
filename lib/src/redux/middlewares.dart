@@ -8,7 +8,7 @@ import 'package:redux/redux.dart';
 void loaderMiddleware(Store<AppState> store, dynamic action, NextDispatcher nextDispatcher){
   // TODO(George): add error handling
 
-  if(action is AddAction){
+  if(action is LoadingMemoryAction){
     _loadMemory(const Icon(Icons.done)).then(
       (value) => store.dispatch(
         SuccessLoadedMemoryAction(value),
