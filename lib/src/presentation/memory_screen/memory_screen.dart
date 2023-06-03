@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:memory/presentation/memory_screen/memory_layout.dart';
+import 'package:memory/src/presentation/memory_screen/memory_layout.dart';
 
 class MemoryScreen extends StatelessWidget {
   const MemoryScreen({super.key});
