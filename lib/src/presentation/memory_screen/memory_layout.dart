@@ -12,8 +12,8 @@ class MemoryLayout extends StatefulWidget {
 
 class _MemoryLayoutState extends State<MemoryLayout> {
 
-  static const buttonText = 'Add memory';
-  static const appBarTitle = 'Memory Screen';
+  static const buttonText = "Add memory";
+  static const appBarTitle = "Memory's Screen";
 
   static const defaultSpacer = SizedBox(height: 18);
   static const screenPadding = EdgeInsets.symmetric(horizontal: 12.0);
