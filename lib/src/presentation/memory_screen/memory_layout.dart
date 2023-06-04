@@ -18,10 +18,9 @@ class MemoryLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Store<AppState> store = StoreProvider.of<AppState>(context);
     return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
-      onInit: store.dispatch(LoadingMemoryAction()),
+      onInit:(store) => store.dispatch(LoadingHomeAction()),
         builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -57,14 +56,14 @@ class MemoryLayout extends StatelessWidget {
     );
   }
   Widget _buildVisible(AppState state) {
-    if(state is MemoryInitial){
+    if(state is InitialHomeAction){
       return Container(color: Colors.orange,);
     }
-     else if (state is LoadingMemory) {
+     else if (state is LoadingHomeAction) {
       return Container(color: Colors.blue,);
-    } else if (state is SuccessMemory) {
+    } else if (state is SuccessHomeAction) {
       return Container(color: Colors.black,);
-    } else if (state is MemoryError) {
+    } else if (state is ErrorHomeAction) {
       return Container(color: Colors.green,);
     }
     throw ArgumentError('No view for state: $state');

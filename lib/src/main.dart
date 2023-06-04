@@ -10,7 +10,7 @@ import 'package:redux/redux.dart';
 void main() {
     final store = Store<AppState>(
       searchReducer,
-      initialState: MemoryInitial(),
+      initialState: AppState(homeState: HomeInitial(), editMemoryState: EditMemoryInitial()),
       middleware: [
         SearchMiddleware(),
       ],

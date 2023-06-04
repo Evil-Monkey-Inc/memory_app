@@ -13,17 +13,17 @@ class SearchMiddleware implements MiddlewareClass<AppState> {
 
   @override
   call(Store<AppState> store, action, NextDispatcher next) {
-    if (action is LoadingMemoryAction) {
+    if (action is LoadingHomeAction) {
 
       _timer?.cancel();
       _operation?.cancel();
       //TODO(Sanya): Changed after dara layer will be setup
       _timer = Timer(const Duration(seconds: 2), () {
-        store.dispatch(LoadingMemory());
+        store.dispatch(LoadingHomeAction());
       });
 
       _timer = Timer(const Duration(seconds: 2), () {
-        store.dispatch(SuccessMemory());
+        store.dispatch(SuccessHomeAction());
       });
     }
     next(action);
