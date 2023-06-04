@@ -12,7 +12,7 @@ void main() {
       searchReducer,
       initialState: AppState(homeState: HomeInitial(), editMemoryState: EditMemoryInitial()),
       middleware: [
-        SearchMiddleware(),
+        BaseMiddleware(),
       ],
     );
     runApp(

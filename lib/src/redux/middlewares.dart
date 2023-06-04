@@ -4,7 +4,7 @@ import 'package:redux/redux.dart';
 
 //TODO(George): Implement for our goals later
 
-class SearchMiddleware implements MiddlewareClass<AppState> {
+class BaseMiddleware implements MiddlewareClass<AppState> {
 
   @override
   call(Store<AppState> store, action, NextDispatcher next) {
