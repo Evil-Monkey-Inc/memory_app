@@ -1,30 +1,19 @@
-import 'dart:async';
 import 'package:memory/src/redux/action.dart';
 import 'package:memory/src/redux/state.dart';
 import 'package:redux/redux.dart';
-import 'package:async/async.dart';
 
 //TODO(George): Implement for our goals later
 
 class SearchMiddleware implements MiddlewareClass<AppState> {
 
-  Timer? _timer;
-  CancelableOperation<Store<AppState>>? _operation;
-
   @override
   call(Store<AppState> store, action, NextDispatcher next) {
     if (action is LoadingHomeAction) {
-
-      _timer?.cancel();
-      _operation?.cancel();
       //TODO(Sanya): Changed after dara layer will be setup
-      _timer = Timer(const Duration(seconds: 2), () {
-        store.dispatch(LoadingHomeAction());
-      });
 
-      _timer = Timer(const Duration(seconds: 2), () {
-        store.dispatch(SuccessHomeAction());
-      });
+
+      return store.dispatch(SuccessHomeAction());
+
     }
     next(action);
   }

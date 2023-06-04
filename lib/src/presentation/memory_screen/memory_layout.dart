@@ -5,7 +5,6 @@ import 'package:memory/src/presentation/add_memory_screen/add_memory_screen.dart
 import 'package:memory/src/presentation/widgets/primary_button.dart';
 import 'package:memory/src/redux/action.dart';
 import 'package:memory/src/redux/state.dart';
-import 'package:redux/redux.dart';
 
 class MemoryLayout extends StatelessWidget {
   static const buttonText = "Add memory";
@@ -56,16 +55,17 @@ class MemoryLayout extends StatelessWidget {
     );
   }
   Widget _buildVisible(AppState state) {
-    if(state is InitialHomeAction){
+      if(state.homeState is HomeInitial){
       return Container(color: Colors.orange,);
     }
-     else if (state is LoadingHomeAction) {
+     else if (state.homeState is HomeLoading) {
+
       return Container(color: Colors.blue,);
-    } else if (state is SuccessHomeAction) {
+    } else if (state.homeState is HomeSuccess) {
       return Container(color: Colors.black,);
-    } else if (state is ErrorHomeAction) {
+    } else if (state.homeState is HomeError) {
       return Container(color: Colors.green,);
     }
-    throw ArgumentError('No view for state: $state');
+   return Container();
   }
 }

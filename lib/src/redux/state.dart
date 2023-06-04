@@ -4,7 +4,6 @@ class AppState{
   final HomeState homeState;
   final EditMemoryState editMemoryState;
 
-//<editor-fold desc="Data Methods">
   const AppState({
     required this.homeState,
     required this.editMemoryState,
