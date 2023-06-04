@@ -17,6 +17,7 @@ class SearchMiddleware implements MiddlewareClass<AppState> {
 
       _timer?.cancel();
       _operation?.cancel();
+      //TODO(Sanya): Changed after dara layer will be setup
       _timer = Timer(const Duration(seconds: 2), () {
         store.dispatch(LoadingMemory());
       });
