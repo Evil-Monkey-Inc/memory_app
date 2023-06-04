@@ -7,13 +7,15 @@ import 'package:memory/src/redux/action.dart';
 import 'package:memory/src/redux/state.dart';
 
 class MemoryLayout extends StatelessWidget {
+   MemoryLayout({super.key});
+
   static const buttonText = "Add memory";
   static const appBarTitle = "Memory's Screen";
 
   static const defaultSpacer = SizedBox(height: 18);
   static const screenPadding = EdgeInsets.symmetric(horizontal: 12.0);
 
-  const MemoryLayout({super.key});
+  final appBarProperty = TextStyle(fontSize: 20.0, color: TotalPalette.textColor);
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +25,18 @@ class MemoryLayout extends StatelessWidget {
         builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text(appBarTitle),
+            backgroundColor: TotalPalette.primaryColor,
+            title: Text(appBarTitle, style: appBarProperty),
             centerTitle: true,
           ),
           body: Padding(
             padding: screenPadding,
             child: Column(
               children: [
-                Expanded(
+                const Expanded(
                   child: AnimatedSwitcher(
                     duration: Duration(milliseconds: 500),
-                    child: _buildVisible(state),
+                  //  child: _buildVisible(state),
                   ),
                 ),
                 Align(
@@ -43,7 +46,7 @@ class MemoryLayout extends StatelessWidget {
                       Navigator.pushNamed(context, AddMemoryScreen.path);
                     },
                     buttonColor: TotalPalette.primaryColor,
-                    textButtonColor: TotalPalette.scaffoldBackgroundColor,
+                    textButtonColor: TotalPalette.textColor,
                   ),
                 ),
                 defaultSpacer,
