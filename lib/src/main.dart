@@ -6,22 +6,19 @@ import 'package:memory/src/redux/redusers.dart';
 import 'package:memory/src/redux/state.dart';
 import 'package:redux/redux.dart';
 
-void main() {
-  // TODO(George): deleted unused states later
-  final store = Store<AppState>(
-    reducer,
-    middleware:[loaderMiddleware],
-    initialState: AppState(
-      counter: 0,
-      text: 'gera',
-      widget: const Icon(Icons.cancel_outlined),
-    ),
-  );
 
-  runApp(
-    StoreProvider(
-      store: store,
-      child: const MemoryApp(),
-    ),
-  );
-}
+void main() {
+    final store = Store<AppState>(
+      searchReducer,
+      initialState: AppState.initial(),
+      middleware: [
+        MemoryMiddleware(),
+      ],
+    );
+    runApp(
+      StoreProvider(
+        store: store,
+        child: const MemoryApp(),
+      ),
+    );
+  }

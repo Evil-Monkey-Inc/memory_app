@@ -1,19 +1,9 @@
-import 'package:flutter/cupertino.dart';
-
 abstract class Actions{}
 
-class AddAction extends Actions{}
+class InitialHomeAction extends Actions{}
 
-class SetTextAction extends Actions{
-  SetTextAction({required this.text});
+class LoadingHomeAction extends Actions{}
 
-  final String text;
-}
+class SuccessHomeAction extends Actions{}
 
-class LoadingMemoryAction extends Actions{}
-
-class SuccessLoadedMemoryAction extends Actions{
-  SuccessLoadedMemoryAction(this.widget);
-
-  final Widget widget;
-}
+class ErrorHomeAction extends Actions{}
