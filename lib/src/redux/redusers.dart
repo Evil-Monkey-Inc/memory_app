@@ -3,16 +3,16 @@ import 'package:memory/src/redux/state.dart';
 import 'package:redux/redux.dart';
 
 final searchReducer = combineReducers<AppState>([
-  TypedReducer<AppState, InitialHomeAction>(_initial),
-  TypedReducer<AppState, LoadingHomeAction>(_loading),
-  TypedReducer<AppState, SuccessHomeAction>(_success),
-  TypedReducer<AppState, ErrorHomeAction>(_onError),
+  TypedReducer<AppState, InitialHomeAction>(
+        (state, _) => state.copyWith(homeState: HomeInitial()),
+  ),
+  TypedReducer<AppState, LoadingHomeAction>(
+        (state, _) => state.copyWith(homeState: HomeLoading()),
+  ),
+  TypedReducer<AppState, SuccessHomeAction>(
+        (state, _) => state.copyWith(homeState: HomeSuccess()),
+  ),
+  TypedReducer<AppState, ErrorHomeAction>(
+        (state, _) => state.copyWith(homeState: HomeError()),
+  ),
 ]);
-
-AppState _initial(AppState state, InitialHomeAction action) => state.copyWith(homeState: HomeInitial());
-
-AppState _loading(AppState state, LoadingHomeAction action) => state.copyWith(homeState: HomeLoading());
-
-AppState _success(AppState state, SuccessHomeAction action) => state.copyWith(homeState: HomeSuccess());
-
-AppState _onError(AppState state, ErrorHomeAction action) => state.copyWith(homeState: HomeError());

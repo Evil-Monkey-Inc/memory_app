@@ -1,6 +1,4 @@
-class AppState{
-
-
+class AppState {
   final HomeState homeState;
   final EditMemoryState editMemoryState;
 
@@ -8,6 +6,11 @@ class AppState{
     required this.homeState,
     required this.editMemoryState,
   });
+
+  factory AppState.initial() => AppState(
+        homeState: HomeInitial(),
+        editMemoryState: EditMemoryInitial(),
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -32,7 +35,7 @@ class AppState{
 //</editor-fold>
 }
 
-abstract class HomeState{}
+abstract class HomeState {}
 
 class HomeInitial implements HomeState {}
 
@@ -42,13 +45,12 @@ class HomeSuccess implements HomeState {}
 
 class HomeError implements HomeState {}
 
-abstract class EditMemoryState{}
+abstract class EditMemoryState {}
 
-class EditMemoryInitial implements EditMemoryState{}
+class EditMemoryInitial implements EditMemoryState {}
 
-class EditMemoryLoading implements EditMemoryState{}
+class EditMemoryLoading implements EditMemoryState {}
 
-class EditMemorySuccess implements EditMemoryState{}
+class EditMemorySuccess implements EditMemoryState {}
 
-class EditMemoryError implements EditMemoryState{}
-
+class EditMemoryError implements EditMemoryState {}
