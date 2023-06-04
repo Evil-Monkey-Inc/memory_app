@@ -44,7 +44,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         labelText: widget.datePickerTitle,
         suffixIcon: GestureDetector(
           onTap: _selectDate,
-          child: const Icon(Icons.calendar_today),
+          child: Icon(Icons.calendar_today),
         ),
       ),
       readOnly: true,
