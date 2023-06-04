@@ -9,6 +9,6 @@ class MemoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MemoryLayout();
+    return const MemoryLayout();
   }
 }
