@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DatePickerWidget extends StatefulWidget {
-  const DatePickerWidget({super.key, required this.datePickerTitle, required this.dateController});
+  const DatePickerWidget({
+    super.key,
+    required this.datePickerTitle,
+    required this.dateController,
+  });
 
   final String datePickerTitle;
   final TextEditingController dateController;
 
-
-
   @override
-  _DatePickerWidgetState createState() => _DatePickerWidgetState();
+  DatePickerWidgetState createState() => DatePickerWidgetState();
 }
 
-class _DatePickerWidgetState extends State<DatePickerWidget> {
-
+class DatePickerWidgetState extends State<DatePickerWidget> {
   Future<void> _selectDate() async {
     final DateTime? selectedDate = await showDatePicker(
       context: context,
@@ -28,7 +29,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
       setState(() {
         widget.dateController.text = formattedDate.toString();
-
       });
     }
   }
@@ -44,7 +44,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         labelText: widget.datePickerTitle,
         suffixIcon: GestureDetector(
           onTap: _selectDate,
-          child: Icon(Icons.calendar_today),
+          child: const Icon(Icons.calendar_today),
         ),
       ),
       readOnly: true,

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
 class InputWidget extends StatefulWidget {
-  InputWidget({super.key, required this.labelText, this.maxLines, this.onChanged, this.titleController});
+  const InputWidget({
+    super.key,
+    required this.labelText,
+    this.maxLines,
+    this.onChanged,
+    this.titleController,
+  });
+
   final String labelText;
   final int? maxLines;
-  final Function (String)? onChanged;
+  final Function(String)? onChanged;
   final TextEditingController? titleController;
 
   @override
@@ -13,7 +20,6 @@ class InputWidget extends StatefulWidget {
 
 class _InputWidgetState extends State<InputWidget> {
   final _titleFocusNode = FocusNode();
-
 
   @override
   void dispose() {

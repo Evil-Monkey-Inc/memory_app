@@ -14,4 +14,9 @@ class RepositoryImpl implements Repository {
   Future<List<MemoryModel>> fetchMemories() {
    return networkService.fetchMemories(testUserUUID);
   }
+
+  @override
+  Future<void> sendNewData( memoryModel) {
+    return networkService.sendNewData(memoryModel);
+  }
 }

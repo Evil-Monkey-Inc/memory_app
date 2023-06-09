@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory/src/colors_pallet/total_palette.dart';
+import 'package:memory/src/data/model/create_memory_model.dart';
 import 'package:memory/src/data/services/network_services_impl.dart';
 import 'package:memory/src/presentation/widgets/primary_button.dart';
 
@@ -13,7 +14,6 @@ class MemoryLayout extends StatefulWidget {
 }
 
 class _MemoryLayoutState extends State<MemoryLayout> {
-
   static const buttonText = "Add memory";
   static const appBarTitle = "Memory's Screen";
 
@@ -25,14 +25,23 @@ class _MemoryLayoutState extends State<MemoryLayout> {
     super.initState();
   }
 
-  void fetchData()async {
-    final memories = await RepositoryImpl(NetworkServiceImpl()).fetchMemories();
-    print(memories);
+  void fetchData() {
+     RepositoryImpl(NetworkServiceImpl()).fetchMemories();
+  }
+
+  void sendData() {
+    RepositoryImpl(NetworkServiceImpl()).sendNewData(
+      CreateMemoryModel(
+        title: 'TEST',
+        description: 'test1',
+        date: DateTime.now(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text(appBarTitle),
         centerTitle: true,
@@ -46,9 +55,8 @@ class _MemoryLayoutState extends State<MemoryLayout> {
               child: PrimaryButton(
                 text: buttonText,
                 onPressed: () {
-                  // Navigator.pushNamed(context, AddMemoryScreen.path);
-                  fetchData();
-
+                  //Navigator.pushNamed(context, AddMemoryScreen.path);
+                  sendData();
                 },
                 buttonColor: TotalPalette.primaryColor,
                 textButtonColor: TotalPalette.scaffoldBackgroundColor,
