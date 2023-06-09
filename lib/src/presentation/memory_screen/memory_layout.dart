@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory/src/colors_pallet/total_palette.dart';
 import 'package:memory/src/data/model/create_memory_model.dart';
+import 'package:memory/src/data/model/memory_model.dart';
 import 'package:memory/src/data/services/network_services_impl.dart';
 import 'package:memory/src/presentation/widgets/primary_button.dart';
 
@@ -16,6 +17,7 @@ class MemoryLayout extends StatefulWidget {
 class _MemoryLayoutState extends State<MemoryLayout> {
   static const buttonText = "Add memory";
   static const appBarTitle = "Memory's Screen";
+  static const muid = 'e729ecd2-b676-45b4-b3fc-3dce4f1752bf';
 
   static const defaultSpacer = SizedBox(height: 18);
   static const screenPadding = EdgeInsets.symmetric(horizontal: 12.0);
@@ -26,7 +28,7 @@ class _MemoryLayoutState extends State<MemoryLayout> {
   }
 
   void fetchData() {
-     RepositoryImpl(NetworkServiceImpl()).fetchMemories();
+    RepositoryImpl(NetworkServiceImpl()).fetchMemories();
   }
 
   void sendData() {
@@ -36,6 +38,23 @@ class _MemoryLayoutState extends State<MemoryLayout> {
         description: 'test1',
         date: DateTime.now(),
       ),
+    );
+  }
+
+  void updateData() {
+    RepositoryImpl(NetworkServiceImpl()).updateData(
+      MemoryModel(
+        muid: muid,
+        title: 'put_TEST11111111',
+        description: 'PUT_description',
+        date: DateTime.now(),
+      ),
+    );
+  }
+
+  void deleteData() {
+    RepositoryImpl(NetworkServiceImpl()).deleteData(
+      MemoryModel(muid: muid),
     );
   }
 
@@ -56,7 +75,7 @@ class _MemoryLayoutState extends State<MemoryLayout> {
                 text: buttonText,
                 onPressed: () {
                   //Navigator.pushNamed(context, AddMemoryScreen.path);
-                  sendData();
+                  deleteData();
                 },
                 buttonColor: TotalPalette.primaryColor,
                 textButtonColor: TotalPalette.scaffoldBackgroundColor,

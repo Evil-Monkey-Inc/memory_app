@@ -4,4 +4,8 @@ abstract class Repository {
   Future<List<MemoryModel>> fetchMemories();
 
   Future<void> sendNewData(memoryModel);
+
+  Future<void> updateData (model);
+
+  Future<void> deleteData (model);
 }

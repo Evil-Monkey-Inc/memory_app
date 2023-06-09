@@ -6,8 +6,6 @@ import 'package:memory/src/data/model/memory_model.dart';
 import 'package:memory/src/data/services/network_services.dart';
 
 class NetworkServiceImpl implements NetworkService {
-  /*static const _baseUrl = "zddarova.pythonanywhere.com";
-  static const _apiUrl = "/api/memories/";*/
   static const _dataKey = 'data';
 
   final userid = '12345678-1234-5678-1234-567812347678';
@@ -56,6 +54,46 @@ class NetworkServiceImpl implements NetworkService {
     );
     if (response.statusCode >= 200 && response.statusCode < 300) {
       print('Data sent successfully.');
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  @override
+  Future<void> updateData (MemoryModel model) async {
+    final data = {
+      "user_id": userid,
+      "memory": model.toJson(),
+    };
+    final response = await put(
+      Uri.parse('https://zddarova.pythonanywhere.com/api/memories/'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(data),
+    );
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      print('Data change successfully.');
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  @override
+  Future<void> deleteData (MemoryModel model) async {
+    final data = {
+      "user_id": userid,
+      "muid": model.muid,
+    };
+    final response = await delete(
+      Uri.parse('https://zddarova.pythonanywhere.com/api/memories/'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(data),
+    );
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      print('Data delete successfully.');
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }

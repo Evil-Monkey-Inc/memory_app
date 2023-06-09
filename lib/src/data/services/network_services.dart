@@ -5,4 +5,8 @@ abstract class NetworkService{
   Future<List<MemoryModel>> fetchMemories(String userId);
 
   Future<void> sendNewData(CreateMemoryModel memoryModel);
+
+  Future<void> updateData(MemoryModel model);
+
+  Future<void> deleteData (MemoryModel model);
 }

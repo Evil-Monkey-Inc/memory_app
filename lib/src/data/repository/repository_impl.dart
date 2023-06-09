@@ -19,4 +19,14 @@ class RepositoryImpl implements Repository {
   Future<void> sendNewData( memoryModel) {
     return networkService.sendNewData(memoryModel);
   }
+
+  @override
+  Future<void> updateData (model) {
+    return networkService.updateData(model);
+  }
+
+  @override
+  Future<void> deleteData (model) {
+    return networkService.deleteData(model);
+  }
 }
