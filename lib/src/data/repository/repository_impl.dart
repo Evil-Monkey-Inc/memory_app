@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:memory/src/data/model/create_memory_model.dart';
 import 'package:memory/src/data/model/memory_model.dart';
 import 'package:memory/src/data/repository/repository.dart';
@@ -8,16 +10,20 @@ class RepositoryImpl implements Repository {
   final NetworkService networkService;
   final StorageService storageService;
 
+  String? cachedUserId;
+
   RepositoryImpl(this.networkService, this.storageService);
 
-  Future<String> returnUserId() async {
-    var userId = await storageService.getUserId();
+  FutureOr<String> returnUserId() async {
+    if (cachedUserId != null) return cachedUserId!;
 
-    if (userId == null) {
+    var userIdFromStorage = await storageService.getUserId();
+    if (userIdFromStorage == null) {
       final isSaved = await storageService.generateUserId();
-      userId = await storageService.getUserId();
+      userIdFromStorage = await storageService.getUserId();
     }
-    return userId!;
+    cachedUserId = userIdFromStorage;
+    return userIdFromStorage!;
   }
 
   @override
