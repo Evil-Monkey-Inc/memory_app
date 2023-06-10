@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:memory/src/data/model/create_memory_model.dart';
 import 'package:memory/src/data/model/memory_model.dart';
 import 'package:memory/src/data/repository/repository.dart';
