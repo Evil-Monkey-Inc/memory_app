@@ -2,7 +2,8 @@ class CreateMemoryModel {
   const CreateMemoryModel({
     required this.title,
     required this.description,
-    required this.date,});
+    required this.date,
+  });
 
   final String title;
   final String description;
@@ -15,5 +16,4 @@ class CreateMemoryModel {
     createMap['date'] = date.toIso8601String();
     return createMap;
   }
-
 }

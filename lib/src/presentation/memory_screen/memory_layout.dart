@@ -3,6 +3,7 @@ import 'package:memory/src/colors_pallet/total_palette.dart';
 import 'package:memory/src/data/model/create_memory_model.dart';
 import 'package:memory/src/data/model/memory_model.dart';
 import 'package:memory/src/data/services/network_services_impl.dart';
+import 'package:memory/src/data/services/storage_service.dart';
 import 'package:memory/src/presentation/widgets/primary_button.dart';
 
 import '../../data/repository/repository_impl.dart';
@@ -17,45 +18,38 @@ class MemoryLayout extends StatefulWidget {
 class _MemoryLayoutState extends State<MemoryLayout> {
   static const buttonText = "Add memory";
   static const appBarTitle = "Memory's Screen";
-  static const muid = 'e729ecd2-b676-45b4-b3fc-3dce4f1752bf';
 
   static const defaultSpacer = SizedBox(height: 18);
   static const screenPadding = EdgeInsets.symmetric(horizontal: 12.0);
+  final repo = RepositoryImpl(NetworkServiceImpl(), StorageServiceImpl());
 
-  @override
-  void initState() {
-    super.initState();
+  Future<List<MemoryModel>> fetchData() async {
+    return await repo.fetchMemories();
   }
 
-  void fetchData() {
-    RepositoryImpl(NetworkServiceImpl()).fetchMemories();
-  }
-
-  void sendData() {
-    RepositoryImpl(NetworkServiceImpl()).sendNewData(
+  Future<void> sendData() async {
+    await repo.sendNewData(
       CreateMemoryModel(
-        title: 'TEST',
-        description: 'test1',
+        title: 'TEST01',
+        description: 'test100',
         date: DateTime.now(),
       ),
     );
   }
 
-  void updateData() {
-    RepositoryImpl(NetworkServiceImpl()).updateData(
+  Future<void> updateData(String muid) async {
+    await repo.updateData(
       MemoryModel(
         muid: muid,
-        title: 'put_TEST11111111',
-        description: 'PUT_description',
+        title: 'put_TEST2221111',
+        description: 'PUT_description22',
         date: DateTime.now(),
       ),
     );
   }
 
-  void deleteData() {
-    RepositoryImpl(NetworkServiceImpl()).deleteData(
-      MemoryModel(muid: muid),
-    );
+  Future<void> deleteData(String muid) async {
+    await repo.deleteData(muid);
   }
 
   @override
@@ -73,9 +67,28 @@ class _MemoryLayoutState extends State<MemoryLayout> {
             Align(
               child: PrimaryButton(
                 text: buttonText,
-                onPressed: () {
+                onPressed: () async {
                   //Navigator.pushNamed(context, AddMemoryScreen.path);
-                  deleteData();
+                  print('\n\n\n');
+                  final memos = await fetchData();
+                  print(memos.length);
+
+                  final muid = memos.first.muid;
+
+                  // await sendData();
+                  await updateData(muid);
+                  await deleteData(muid);
+
+                  final memos2 = await fetchData();
+
+                  final muid2 = memos2.first.muid;
+                  await deleteData(muid2);
+
+
+                  final memos3 = await fetchData();
+                  print(memos3.length);
+
+                  print('\n\n\n');
                 },
                 buttonColor: TotalPalette.primaryColor,
                 textButtonColor: TotalPalette.scaffoldBackgroundColor,
