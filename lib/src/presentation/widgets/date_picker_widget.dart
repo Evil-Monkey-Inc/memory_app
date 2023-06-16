@@ -3,19 +3,20 @@ import 'package:intl/intl.dart';
 import 'package:memory/src/colors_pallet/total_palette.dart';
 
 class DatePickerWidget extends StatefulWidget {
-  const DatePickerWidget({super.key, required this.datePickerTitle, required this.dateController});
+  const DatePickerWidget({
+    super.key,
+    required this.datePickerTitle,
+    required this.dateController,
+  });
 
   final String datePickerTitle;
   final TextEditingController dateController;
 
-
-
   @override
-  _DatePickerWidgetState createState() => _DatePickerWidgetState();
+  DatePickerWidgetState createState() => DatePickerWidgetState();
 }
 
-class _DatePickerWidgetState extends State<DatePickerWidget> {
-
+class DatePickerWidgetState extends State<DatePickerWidget> {
   Future<void> _selectDate() async {
     final DateTime? selectedDate = await showDatePicker(
       context: context,
@@ -29,7 +30,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
       setState(() {
         widget.dateController.text = formattedDate.toString();
-
       });
     }
   }

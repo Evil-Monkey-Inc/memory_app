@@ -80,14 +80,15 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
               labelText: labelTextDescription,
               maxLines: maxLines,
               onChanged: (value) {
-                print(value);
               },
             ),
             const Spacer(),
             PrimaryButton(
               isEnabled: isButtonEnabled,
               text: buttonText,
-              onPressed: () {},
+              onPressed: () {
+
+              },
               buttonColor: TotalPalette.primaryColor,
               textButtonColor: TotalPalette.scaffoldBackgroundColor,
             ),
