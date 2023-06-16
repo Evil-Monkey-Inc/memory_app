@@ -12,6 +12,9 @@ class AddMemoryLayout extends StatefulWidget {
 }
 
 class _AddMemoryLayoutState extends State<AddMemoryLayout> {
+  final _datePickerController = TextEditingController();
+  final _titleController = TextEditingController();
+
   static const appBarTitle = 'Add memory';
   static const buttonText = 'Remember moment ❤️';
   static const labelTextTitle = 'Enter memory title';
@@ -19,29 +22,27 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
   static const labelTextDescription = 'Enter memory description';
 
   static const maxLines = 5;
-
   static const topSpacer = SizedBox(height: 24);
   static const defaultSpacer = SizedBox(height: 18);
   static const screenPadding = EdgeInsets.symmetric(horizontal: 12.0);
-  final datePickerController = TextEditingController();
-  final titleController = TextEditingController();
+  final appBarProperty = TextStyle(fontSize: 20.0, color: TotalPalette.textColor);
 
-  bool get isBUttonEbaled {
+  bool get isButtonEnabled {
     if (!mounted) return false;
-    return datePickerController.text.isNotEmpty && titleController.text.isNotEmpty;
+    return _datePickerController.text.isNotEmpty && _titleController.text.isNotEmpty;
   }
 
   @override
   void initState() {
-    datePickerController.addListener(() => setState(() {}));
-    titleController.addListener(() => setState(() {}));
+    _datePickerController.addListener(() => setState(() {}));
+    _titleController.addListener(() => setState(() {}));
     super.initState();
   }
 
   @override
   void dispose() {
-    datePickerController.dispose();
-    titleController.dispose();
+    _datePickerController.dispose();
+    _titleController.dispose();
     super.dispose();
   }
 
@@ -49,7 +50,15 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(appBarTitle),
+        leading: IconButton(
+          onPressed: () {},
+          icon:  const Icon(Icons.arrow_back, color: Colors.black,),
+        ),
+        backgroundColor: TotalPalette.primaryColor,
+        title: Text(
+          appBarTitle,
+          style: appBarProperty,
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -59,12 +68,12 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
             topSpacer,
             InputWidget(
               labelText: labelTextTitle,
-              titleController: titleController,
+              titleController: _titleController,
             ),
             defaultSpacer,
             DatePickerWidget(
               datePickerTitle: datePickerTitle,
-              dateController: datePickerController,
+              dateController: _datePickerController,
             ),
             defaultSpacer,
             InputWidget(
@@ -75,7 +84,7 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
             ),
             const Spacer(),
             PrimaryButton(
-              isEnabled: isBUttonEbaled,
+              isEnabled: isButtonEnabled,
               text: buttonText,
               onPressed: () {
 

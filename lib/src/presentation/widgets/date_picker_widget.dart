@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:memory/src/colors_pallet/total_palette.dart';
 
 class DatePickerWidget extends StatefulWidget {
   const DatePickerWidget({
@@ -38,7 +39,26 @@ class DatePickerWidgetState extends State<DatePickerWidget> {
     return TextFormField(
       controller: widget.dateController,
       decoration: InputDecoration(
+        focusColor: TotalPalette.primaryColor,
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: TotalPalette.primaryColor),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: TotalPalette.primaryColor),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: TotalPalette.primaryColor),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: TotalPalette.primaryColor),
+          borderRadius: BorderRadius.circular(10),
+        ),
         border: OutlineInputBorder(
+
+          borderSide: BorderSide(color: TotalPalette.primaryColor),
           borderRadius: BorderRadius.circular(10),
         ),
         labelText: widget.datePickerTitle,
