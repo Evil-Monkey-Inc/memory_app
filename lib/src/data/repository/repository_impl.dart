@@ -6,12 +6,12 @@ import 'package:memory/src/data/services/network_services.dart';
 import 'package:memory/src/data/services/storage_service.dart';
 
 class RepositoryImpl implements Repository {
+  RepositoryImpl(this.networkService, this.storageService);
+
   final NetworkService networkService;
   final StorageService storageService;
 
   String? cachedUserId;
-
-  RepositoryImpl(this.networkService, this.storageService);
 
   FutureOr<String> returnUserId() async {
     if (cachedUserId != null) return cachedUserId!;
