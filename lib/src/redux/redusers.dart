@@ -22,13 +22,13 @@ final memoryReducer = combineReducers<AppState>([
   TypedReducer<AppState, InitialMemoryAction>(
         (state, _) => state.copyWith(editMemoryState: EditMemoryInitial()),
   ),
-  TypedReducer<AppState, LoadingHomeAction>(
+  TypedReducer<AppState, LoadingMemoryAction>(
         (state, _) => state.copyWith(editMemoryState: EditMemoryLoading()),
   ),
-  TypedReducer<AppState, SuccessHomeAction>(
+  TypedReducer<AppState, LoadedMemoryAction>(
         (state, _) => state.copyWith(editMemoryState: EditMemorySuccess()),
   ),
-  TypedReducer<AppState, ErrorHomeAction>(
+  TypedReducer<AppState, ErrorMemoryAction>(
         (state, _) => state.copyWith(editMemoryState: EditMemoryError()),
   ),
 ]);

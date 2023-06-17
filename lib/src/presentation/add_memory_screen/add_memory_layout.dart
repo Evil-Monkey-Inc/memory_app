@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:memory/src/colors_pallet/total_palette.dart';
+import 'package:memory/src/data/model/create_memory_model.dart';
 import 'package:memory/src/presentation/widgets/date_picker_widget.dart';
 import 'package:memory/src/presentation/widgets/primary_button.dart';
 import 'package:memory/src/presentation/widgets/input_widget.dart';
+import 'package:memory/src/redux/actions/memory_actions.dart';
 import 'package:memory/src/redux/state.dart';
 
 class AddMemoryLayout extends StatefulWidget {
@@ -17,6 +19,11 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
   final _datePickerController = TextEditingController();
   final _titleController = TextEditingController();
 
+  String? title;
+  DateTime? date;
+  String? description;
+
+  static const plug = "empty";
   static const appBarTitle = 'Add memory';
   static const buttonText = 'Remember moment ❤️';
   static const labelTextTitle = 'Enter memory title';
@@ -36,8 +43,12 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
 
   @override
   void initState() {
-    _datePickerController.addListener(() => setState(() {}));
-    _titleController.addListener(() => setState(() {}));
+    _datePickerController.addListener(() {
+      setState(() => date = DateTime.parse(_datePickerController.text));
+    });
+    _titleController.addListener(() {
+      setState(() => title = _titleController.text);
+    });
     super.initState();
   }
 
@@ -52,7 +63,7 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
-        onInit:(store) => store.dispatch(EditMemoryLoading()),
+        onInit:(store) => store.dispatch(LoadingMemoryAction()),
         builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -75,6 +86,20 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
       }
     );
   }
+
+  void rememberMoment(){
+    StoreProvider.of<AppState>(context).dispatch(
+      CreateMemoryAction(
+        CreateMemoryModel(
+          title: title!,
+          description: description ?? plug,
+          date: date!,
+        ),
+      ),
+    );
+    Navigator.of(context).pop();
+  }
+
   Widget _buildVisible(AppState state) {
       if(state.editMemoryState is EditMemoryInitial){
       return Container(color: Colors.orange,);
@@ -102,14 +127,17 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
           },
         ),
         const Spacer(),
-        PrimaryButton(
-          isEnabled: isButtonEnabled,
-          text: buttonText,
-          onPressed: () {
-
-          },
-          buttonColor: TotalPalette.primaryColor,
-          textButtonColor: TotalPalette.scaffoldBackgroundColor,
+        StoreConnector<AppState, AppState>(
+            converter: (store) => store.state,
+          builder: (context, state) {
+            return PrimaryButton(
+              isEnabled: isButtonEnabled,
+              text: buttonText,
+              onPressed: rememberMoment,
+              buttonColor: TotalPalette.primaryColor,
+              textButtonColor: TotalPalette.scaffoldBackgroundColor,
+            );
+          }
         ),
         defaultSpacer,
       ],
