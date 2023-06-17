@@ -18,6 +18,7 @@ class AddMemoryLayout extends StatefulWidget {
 class _AddMemoryLayoutState extends State<AddMemoryLayout> {
   final _datePickerController = TextEditingController();
   final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   String? title;
   DateTime? date;
@@ -48,6 +49,9 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
     });
     _titleController.addListener(() {
       setState(() => title = _titleController.text);
+    });
+    _titleController.addListener(() {
+      setState(() => description = _descriptionController.text);
     });
     super.initState();
   }
@@ -121,10 +125,9 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
         ),
         defaultSpacer,
         InputWidget(
+          titleController: _descriptionController,
           labelText: labelTextDescription,
           maxLines: maxLines,
-          onChanged: (value) {
-          },
         ),
         const Spacer(),
         StoreConnector<AppState, AppState>(
@@ -137,14 +140,18 @@ class _AddMemoryLayoutState extends State<AddMemoryLayout> {
               buttonColor: TotalPalette.primaryColor,
               textButtonColor: TotalPalette.scaffoldBackgroundColor,
             );
-          }
-        ),
-        defaultSpacer,
-      ],
+            },
+          ),
+          defaultSpacer,
+        ],
       );
     } else if (state.editMemoryState is EditMemoryError) {
-      return Container(color: Colors.green,);
+      return Container(
+        color: Colors.green,
+      );
     }
-    return Container(color: Colors.black12,);
+    return Container(
+      color: Colors.black12,
+    );
   }
 }
