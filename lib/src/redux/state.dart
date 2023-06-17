@@ -1,3 +1,5 @@
+import 'package:memory/src/data/model/memory_model.dart';
+
 class AppState {
   final HomeState homeState;
   final EditMemoryState editMemoryState;
@@ -41,7 +43,11 @@ class HomeInitial implements HomeState {}
 
 class HomeLoading implements HomeState {}
 
-class HomeSuccess implements HomeState {}
+class HomeSuccess implements HomeState {
+  HomeSuccess(this.memoryModels);
+
+  final List<MemoryModel> memoryModels;
+}
 
 class HomeError implements HomeState {}
 

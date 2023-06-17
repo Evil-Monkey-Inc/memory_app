@@ -1,9 +1,7 @@
 import 'package:memory/src/data/repository/repository.dart';
-import 'package:memory/src/redux/action.dart';
+import 'package:memory/src/redux/actions/home_actions.dart';
 import 'package:memory/src/redux/state.dart';
 import 'package:redux/redux.dart';
-
-//TODO(George): Implement for our goals later
 
 class MemoryMiddleware implements MiddlewareClass<AppState> {
   MemoryMiddleware(this.repository);
@@ -15,8 +13,14 @@ class MemoryMiddleware implements MiddlewareClass<AppState> {
     if (action is LoadingHomeAction) {
      final memories = await repository.fetchMemories();
      print('test fetchMemories $memories');
-     return store.dispatch(SuccessHomeAction());
+     return store.dispatch(SuccessHomeAction(memories));
     }
+    else if(action is EditMemoryLoading){
+      await Future.delayed(Duration(seconds: 5)); // Add a delay of 5 seconds
+      print('test circular');
+      return store.dispatch(EditMemorySuccess());
+    }
+
     next(action);
-  }
+    }
 }

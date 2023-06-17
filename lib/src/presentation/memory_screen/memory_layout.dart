@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:memory/src/colors_pallet/total_palette.dart';
 import 'package:memory/src/presentation/add_memory_screen/add_memory_screen.dart';
 import 'package:memory/src/presentation/widgets/primary_button.dart';
-import 'package:memory/src/redux/action.dart';
+import 'package:memory/src/redux/actions/home_actions.dart';
 import 'package:memory/src/redux/state.dart';
 
 class MemoryLayout extends StatelessWidget {
@@ -33,10 +33,10 @@ class MemoryLayout extends StatelessWidget {
             padding: screenPadding,
             child: Column(
               children: [
-                const Expanded(
+                 Expanded(
                   child: AnimatedSwitcher(
-                    duration: Duration(milliseconds: 500),
-                  //  child: _buildVisible(state),
+                    duration: const Duration(milliseconds: 500),
+                   child: _buildVisible(state),
                   ),
                 ),
                 Align(
@@ -57,6 +57,7 @@ class MemoryLayout extends StatelessWidget {
       }
     );
   }
+
   Widget _buildVisible(AppState state) {
       if(state.homeState is HomeInitial){
       return Container(color: Colors.orange,);
@@ -65,10 +66,11 @@ class MemoryLayout extends StatelessWidget {
 
       return Container(color: Colors.blue,);
     } else if (state.homeState is HomeSuccess) {
-      return Container(color: Colors.black,);
+        final successState = state.homeState as HomeSuccess;
+       print('test into layout: ${successState.memoryModels}');
     } else if (state.homeState is HomeError) {
       return Container(color: Colors.green,);
     }
-   return Container();
+   return Container(color: Colors.black12,);
   }
 }

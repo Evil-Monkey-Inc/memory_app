@@ -13,7 +13,10 @@ void main() {
   setupServiceLocator();
 
     final store = Store<AppState>(
-      searchReducer,
+        combineReducers<AppState>([
+          homeReducer,
+          memoryReducer,
+        ]),
       initialState: AppState.initial(),
       middleware: [
         MemoryMiddleware(getIt<Repository>()),

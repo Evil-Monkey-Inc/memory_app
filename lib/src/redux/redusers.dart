@@ -1,8 +1,9 @@
-import 'package:memory/src/redux/action.dart';
+import 'package:memory/src/redux/actions/home_actions.dart';
+import 'package:memory/src/redux/actions/memory_actions.dart';
 import 'package:memory/src/redux/state.dart';
 import 'package:redux/redux.dart';
 
-final searchReducer = combineReducers<AppState>([
+final homeReducer = combineReducers<AppState>([
   TypedReducer<AppState, InitialHomeAction>(
         (state, _) => state.copyWith(homeState: HomeInitial()),
   ),
@@ -10,9 +11,24 @@ final searchReducer = combineReducers<AppState>([
         (state, _) => state.copyWith(homeState: HomeLoading()),
   ),
   TypedReducer<AppState, SuccessHomeAction>(
-        (state, _) => state.copyWith(homeState: HomeSuccess()),
+        (state, action) => state.copyWith(homeState: HomeSuccess(action.memories)),
   ),
   TypedReducer<AppState, ErrorHomeAction>(
         (state, _) => state.copyWith(homeState: HomeError()),
+  ),
+]);
+
+final memoryReducer = combineReducers<AppState>([
+  TypedReducer<AppState, InitialMemoryAction>(
+        (state, _) => state.copyWith(editMemoryState: EditMemoryInitial()),
+  ),
+  TypedReducer<AppState, LoadingHomeAction>(
+        (state, _) => state.copyWith(editMemoryState: EditMemoryLoading()),
+  ),
+  TypedReducer<AppState, SuccessHomeAction>(
+        (state, _) => state.copyWith(editMemoryState: EditMemorySuccess()),
+  ),
+  TypedReducer<AppState, ErrorHomeAction>(
+        (state, _) => state.copyWith(editMemoryState: EditMemoryError()),
   ),
 ]);
