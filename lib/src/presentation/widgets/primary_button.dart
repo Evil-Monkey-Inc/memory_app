@@ -18,7 +18,7 @@ class PrimaryButton extends StatelessWidget {
 
   static const minHeight = 48.0;
 
-  static const double defaultSpacing = 14.0;
+  static const double defaultSpacing = 20.0;
   static const paddingAroundButton = EdgeInsets.symmetric(vertical: 8);
   static const shapeButton = RoundedRectangleBorder(borderRadius:  BorderRadius.all(Radius.circular(48)));
 
@@ -41,7 +41,7 @@ class PrimaryButton extends StatelessWidget {
           style: TextStyle(
             fontSize: defaultSpacing,
             color: isEnabled
-                ? Theme.of(context).secondaryHeaderColor
+                ? textButtonColor
                 : Theme.of(context).disabledColor,
           ),
         ),
